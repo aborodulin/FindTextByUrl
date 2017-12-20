@@ -1,4 +1,6 @@
-﻿namespace FindTextByUrl
+﻿using System.Linq;
+
+namespace FindTextByUrl
 {
     using System;
     using System.IO;
@@ -113,10 +115,10 @@
             while (m.Success && !this.Request.IsCancelled())
             {
                 this.Log("'{0}' found at position {1}", m.Value, m.Index);
-                Int32 startIndex = m.Index - 15 > 0 ? m.Index - 15 : 0;
-                Int32 endIndex = m.Index + 15 < text.Length ? m.Index + 15 : text.Length;
+                Int32 startIndex = m.Index - 50 > 0 ? m.Index - 50 : 0;
+                Int32 length = startIndex + m.Value.Length + 100 < text.Length ? m.Value.Length + 100 : text.Length - startIndex;
 
-                this.Log(text.Substring(startIndex, endIndex));
+                this.Log(text.Substring(startIndex, length < 0 ? 0 : length));
                 this.Log(String.Empty);
                 m = m.NextMatch();
             }
@@ -129,7 +131,14 @@
         /// <param name="args">The arguments.</param>
         public void Log(String message, params Object[] args)
         {
-            this.Request.Log(String.Format(message, args) + Environment.NewLine);
+            try
+            {
+                this.Request.Log(String.Format(message, args) + Environment.NewLine);
+            }
+            catch
+            {
+                this.Request.Log(message + Environment.NewLine);
+            }
         }
 
         #endregion Public

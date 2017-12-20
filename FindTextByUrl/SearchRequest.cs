@@ -185,7 +185,14 @@ namespace FindTextByUrl
             // Fire the event
             if (this.OnProgressUpdate!= null)
             {
-                this.OnProgressUpdate(1, String.Format(message, args) + Environment.NewLine);
+                try
+                {
+                    this.OnProgressUpdate(1, String.Format(message, args) + Environment.NewLine);
+                }
+                catch
+                {
+                    this.OnProgressUpdate(1, message + Environment.NewLine);
+                }
             }
         }
 
