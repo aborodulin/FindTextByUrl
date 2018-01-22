@@ -33,11 +33,7 @@ namespace FindTextByUrl
                 SearchRequest searchRequest = new SearchRequest(urlTextBox.Text, extensionTextBox.Text, searchTextBox.Text, loginTextBox.Text, passwordTextBox.Text, isBasicAuthcheckBox.Checked);
 
                 searchRequest.OnProgressUpdate += OnProgressUpdate;
-               // searchRequest.Cancel();
-
-                //searchRequest.OnCancel 
-                   // backgroundWorker1.
-               // backgroundWorker1.ProgressChanged += ;
+                searchRequest.OnStatusUpdate += this.backgroundWorker1_ProgressChanged;
 
                 // Start the asynchronous operation.
                 backgroundWorker1.RunWorkerAsync(searchRequest);
@@ -93,13 +89,15 @@ namespace FindTextByUrl
                 this.logTextBox.AppendText(message);
             });
         }
-
+        
         // This event handler updates the progress.
         private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            //this.logTextBox = (sender as SearchDirectory).Results;
-
-            toolStripStatusLabel1.Text = (e.ProgressPercentage.ToString() + "%");
+            SearchStat stat = e.UserState as SearchStat;
+            if (stat != null)
+            {
+                toolStripStatusLabel1.Text = $"Found: {stat.AllFound} in {stat.FoundFiles}/{stat.AllFiles} ({e.ProgressPercentage}%)";
+            }
         }
 
         // This event handler deals with the results of the background operation.
@@ -112,7 +110,7 @@ namespace FindTextByUrl
 
             if (e.Cancelled == true)
             {
-                toolStripStatusLabel1.Text = "Canceled!";
+                toolStripStatusLabel1.Text = "Canceled! " + toolStripStatusLabel1.Text;
             }
             else if (e.Error != null)
             {
@@ -122,7 +120,7 @@ namespace FindTextByUrl
             }
             else
             {
-                toolStripStatusLabel1.Text = "Done!";
+                toolStripStatusLabel1.Text = "Done! " + toolStripStatusLabel1.Text;
                 if (e.Result != null)
                 {
                     logTextBox.AppendText(e.Result.ToString());
@@ -149,6 +147,22 @@ namespace FindTextByUrl
                 logTextBox.AppendText(error);    
             }
             
+        }
+
+        /// <summary>
+        /// Handles the FormClosing event of the MainForm control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="FormClosingEventArgs"/> instance containing the event data.</param>
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            ConfigRequest.Default.Url = this.urlTextBox.Text;
+            ConfigRequest.Default.Extensions = this.extensionTextBox.Text;
+            ConfigRequest.Default.Login = this.loginTextBox.Text;
+            ConfigRequest.Default.Password = this.passwordTextBox.Text;
+            ConfigRequest.Default.SearchKeyword = this.searchTextBox.Text;
+            ConfigRequest.Default.IsBasicAuth = this.isBasicAuthcheckBox.Checked;
+            ConfigRequest.Default.Save();
         }
     }
 }

@@ -22,6 +22,8 @@ namespace FindTextByUrl
         private const String _tempDirectoryName = "TempFiles";
         public delegate void ProgressUpdate(int value, String currentMessage);
         public event ProgressUpdate OnProgressUpdate;
+        public delegate void StatusUpdate(object sender, ProgressChangedEventArgs e);
+        public event StatusUpdate OnStatusUpdate;
         public Func<Boolean> IsCancelled;
 
         #endregion Fields
@@ -36,7 +38,7 @@ namespace FindTextByUrl
             this.Login = login;
             this.Password = password;
             this.IsBasicAuth = isBasicAuth;
-
+            
             if (!String.IsNullOrEmpty(extensionList))
             {
                 this.Extensions = extensionList.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
@@ -62,13 +64,20 @@ namespace FindTextByUrl
         #region Properties
 
         /// <summary>
+        /// Gets or sets the stat.
+        /// </summary>
+        /// <value>
+        /// The stat.
+        /// </value>
+        public SearchStat Stat { get; set; }
+
+        /// <summary>
         /// Gets the URL path.
         /// </summary>
         /// <value>
         /// The URL path.
         /// </value>
-        public
-        String UrlPath { get; private set; }
+        public String UrlPath { get; private set; }
 
         /// <summary>
         /// Gets the extension list.
@@ -153,7 +162,7 @@ namespace FindTextByUrl
                 return path;
             }
         }
-
+        
         #endregion Properties
 
         #region Public
@@ -197,6 +206,17 @@ namespace FindTextByUrl
         }
 
         /// <summary>
+        /// Updates the status.
+        /// </summary>
+        public void UpdateStatus()
+        {
+            if (this.OnStatusUpdate != null && this.Stat != null)
+            {
+                this.OnStatusUpdate(this, new ProgressChangedEventArgs(this.Stat.PercentFinished, this.Stat));
+            }
+        }
+
+        /// <summary>
         /// Loads the document.
         /// </summary>
         /// <returns></returns>
@@ -234,10 +254,5 @@ namespace FindTextByUrl
         #region Private
 
         #endregion Private
-
-        public void HandleProgressChanged(Object sender, ProgressChangedEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

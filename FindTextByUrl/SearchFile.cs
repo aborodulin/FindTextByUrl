@@ -8,6 +8,9 @@ namespace FindTextByUrl
     using System.Text;
     using System.Text.RegularExpressions;
 
+    /// <summary>
+    /// 
+    /// </summary>
     public class SearchFile
     {
         /// <summary>
@@ -80,6 +83,22 @@ namespace FindTextByUrl
             }
         }
 
+        /// <summary>
+        /// Gets the found count.
+        /// </summary>
+        /// <value>
+        /// The found count.
+        /// </value>
+        public Int32 FoundCount { get; private set; } = 0;
+
+        /// <summary>
+        /// Gets a value indicating whether this instance is finished.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is finished; otherwise, <c>false</c>.
+        /// </value>
+        public Boolean IsFinished { get; private set; } = false;
+
         #endregion Properties
 
         #region Public
@@ -115,6 +134,8 @@ namespace FindTextByUrl
             while (m.Success && !this.Request.IsCancelled())
             {
                 this.Log("'{0}' found at position {1}", m.Value, m.Index);
+                this.FoundCount += 1;
+                this.Request.UpdateStatus();
                 Int32 startIndex = m.Index - 50 > 0 ? m.Index - 50 : 0;
                 Int32 length = startIndex + m.Value.Length + 100 < text.Length ? m.Value.Length + 100 : text.Length - startIndex;
 
@@ -122,6 +143,9 @@ namespace FindTextByUrl
                 this.Log(String.Empty);
                 m = m.NextMatch();
             }
+
+            this.IsFinished = true;
+            this.Request.UpdateStatus();
         }
 
         /// <summary>
@@ -139,6 +163,15 @@ namespace FindTextByUrl
             {
                 this.Request.Log(message + Environment.NewLine);
             }
+        }
+
+        /// <summary>
+        /// Resets the stat.
+        /// </summary>
+        public void ResetStat()
+        {
+            this.FoundCount = 0;
+            this.IsFinished = false;
         }
 
         #endregion Public

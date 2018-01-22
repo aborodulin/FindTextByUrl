@@ -52,6 +52,8 @@
                 this.GetAllSearchFiles();
             }
 
+            this.Request.Stat = new SearchStat(this);
+
             foreach (SearchFile searchFile in this)
             {
                 if (!this.Request.IsCancelled())
@@ -102,6 +104,7 @@
                         }
                         else
                         {
+                            file.ResetStat();
                             file.Log("Use existing file:{0}", att.Value);
                         }
 
