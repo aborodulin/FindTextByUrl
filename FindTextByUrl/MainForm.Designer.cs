@@ -47,6 +47,10 @@
             this.label6 = new System.Windows.Forms.Label();
             this.isBasicAuthcheckBox = new System.Windows.Forms.CheckBox();
             this.cleanCacheButton = new System.Windows.Forms.Button();
+            this.tbFirst = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.tbLast = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -73,7 +77,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.urlTextBox.Location = new System.Drawing.Point(12, 31);
             this.urlTextBox.Name = "urlTextBox";
-            this.urlTextBox.Size = new System.Drawing.Size(585, 20);
+            this.urlTextBox.Size = new System.Drawing.Size(595, 20);
             this.urlTextBox.TabIndex = 2;
             // 
             // statusStrip1
@@ -142,16 +146,16 @@
             // extensionTextBox
             // 
             this.extensionTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.extensionTextBox.Location = new System.Drawing.Point(603, 30);
+            this.extensionTextBox.Location = new System.Drawing.Point(613, 30);
             this.extensionTextBox.Name = "extensionTextBox";
-            this.extensionTextBox.Size = new System.Drawing.Size(220, 20);
+            this.extensionTextBox.Size = new System.Drawing.Size(210, 20);
             this.extensionTextBox.TabIndex = 6;
             // 
             // label4
             // 
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(600, 9);
+            this.label4.Location = new System.Drawing.Point(608, 9);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(212, 13);
             this.label4.TabIndex = 5;
@@ -212,6 +216,44 @@
             this.cleanCacheButton.UseVisualStyleBackColor = true;
             this.cleanCacheButton.Click += new System.EventHandler(this.cleanCacheButton_Click);
             // 
+            // tbFirst
+            // 
+            this.tbFirst.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbFirst.Location = new System.Drawing.Point(613, 69);
+            this.tbFirst.Name = "tbFirst";
+            this.tbFirst.Size = new System.Drawing.Size(41, 20);
+            this.tbFirst.TabIndex = 6;
+            this.tbFirst.TextChanged += new System.EventHandler(this.tbFirst_TextChanged);
+            // 
+            // label7
+            // 
+            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(608, 53);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(51, 13);
+            this.label7.TabIndex = 5;
+            this.label7.Text = "Take first";
+            // 
+            // tbLast
+            // 
+            this.tbLast.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbLast.Location = new System.Drawing.Point(668, 69);
+            this.tbLast.Name = "tbLast";
+            this.tbLast.Size = new System.Drawing.Size(41, 20);
+            this.tbLast.TabIndex = 6;
+            this.tbLast.TextChanged += new System.EventHandler(this.tbLast_TextChanged);
+            // 
+            // label8
+            // 
+            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(665, 53);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(51, 13);
+            this.label8.TabIndex = 5;
+            this.label8.Text = "Take last";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -219,7 +261,11 @@
             this.ClientSize = new System.Drawing.Size(1187, 461);
             this.Controls.Add(this.cleanCacheButton);
             this.Controls.Add(this.isBasicAuthcheckBox);
+            this.Controls.Add(this.tbLast);
+            this.Controls.Add(this.tbFirst);
             this.Controls.Add(this.extensionTextBox);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label3);
@@ -265,6 +311,10 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.CheckBox isBasicAuthcheckBox;
         private System.Windows.Forms.Button cleanCacheButton;
+        private System.Windows.Forms.TextBox tbFirst;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox tbLast;
+        private System.Windows.Forms.Label label8;
     }
 }
 

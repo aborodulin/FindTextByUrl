@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Drawing;
+using System.IO;
 
 namespace FindTextByUrl
 {
@@ -24,13 +25,21 @@ namespace FindTextByUrl
             this.passwordTextBox.Text = ConfigRequest.Default.Password;
             this.searchTextBox.Text = ConfigRequest.Default.SearchKeyword;
             this.isBasicAuthcheckBox.Checked = ConfigRequest.Default.IsBasicAuth;
+            this.tbFirst.Text= ConfigRequest.Default.TakeFirst;
+            this.tbLast.Text = ConfigRequest.Default.TakeLast;
         }
 
         private void searchButton_Click(object sender, EventArgs e)
         {
             if (backgroundWorker1.IsBusy != true)
             {
-                SearchRequest searchRequest = new SearchRequest(urlTextBox.Text, extensionTextBox.Text, searchTextBox.Text, loginTextBox.Text, passwordTextBox.Text, isBasicAuthcheckBox.Checked);
+                Int32 takeFirst;
+                Int32 takeLast;
+
+                Int32.TryParse(tbFirst.Text, out takeFirst);
+                Int32.TryParse(tbLast.Text, out takeLast);
+
+                SearchRequest searchRequest = new SearchRequest(urlTextBox.Text, extensionTextBox.Text, searchTextBox.Text, loginTextBox.Text, passwordTextBox.Text, isBasicAuthcheckBox.Checked, takeFirst, takeLast);
 
                 searchRequest.OnProgressUpdate += OnProgressUpdate;
                 searchRequest.OnStatusUpdate += this.backgroundWorker1_ProgressChanged;
@@ -162,7 +171,33 @@ namespace FindTextByUrl
             ConfigRequest.Default.Password = this.passwordTextBox.Text;
             ConfigRequest.Default.SearchKeyword = this.searchTextBox.Text;
             ConfigRequest.Default.IsBasicAuth = this.isBasicAuthcheckBox.Checked;
+            ConfigRequest.Default.TakeFirst = this.tbFirst.Text;
+            ConfigRequest.Default.TakeLast = this.tbLast.Text;
             ConfigRequest.Default.Save();
+        }
+
+        private void tbFirst_TextChanged(object sender, EventArgs e)
+        {
+            if (tbFirst.Text.IsDigitsOnly())
+            {
+                tbFirst.ResetBackColor();
+            }
+            else
+            {
+                tbFirst.BackColor = Color.LightPink;
+            }
+        }
+
+        private void tbLast_TextChanged(object sender, EventArgs e)
+        {
+            if (tbLast.Text.IsDigitsOnly())
+            {
+                tbLast.ResetBackColor();
+            }
+            else
+            {
+                tbLast.BackColor = Color.LightPink;
+            }
         }
     }
 }

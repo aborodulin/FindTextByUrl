@@ -54,7 +54,23 @@
 
             this.Request.Stat = new SearchStat(this);
 
-            foreach (SearchFile searchFile in this)
+            List<SearchFile> searchFiles = request.TakeFirst.HasValue || request.TakeLast.HasValue ? new List<SearchFile>() : this;
+
+            if (request.TakeFirst.HasValue)
+            {
+                searchFiles.AddRange(this.Take(request.TakeFirst.Value));
+            }
+
+            if (request.TakeLast.HasValue)
+            {
+                Int32 skipCount = this.Count - request.TakeLast.Value;
+
+                skipCount = skipCount < 0 ? 0 : skipCount;
+
+                searchFiles.AddRange(this.Skip(skipCount));
+            }
+
+            foreach (SearchFile searchFile in searchFiles)
             {
                 if (!this.Request.IsCancelled())
                 {

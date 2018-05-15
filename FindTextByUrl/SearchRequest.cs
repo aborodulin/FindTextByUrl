@@ -30,7 +30,7 @@ namespace FindTextByUrl
         
         #region Constructors
 
-        public SearchRequest(String urlPath, String extensionList, String keyWord, String login, String password, Boolean isBasicAuth)
+        public SearchRequest(String urlPath, String extensionList, String keyWord, String login, String password, Boolean isBasicAuth, Int32? takeFirst, Int32? takeLast)
         {
             this.UrlPath = urlPath;
             this.ExtensionList = extensionList;
@@ -38,6 +38,8 @@ namespace FindTextByUrl
             this.Login = login;
             this.Password = password;
             this.IsBasicAuth = isBasicAuth;
+            this.TakeFirst = takeFirst;
+            this.TakeLast = takeLast;
             
             if (!String.IsNullOrEmpty(extensionList))
             {
@@ -142,6 +144,22 @@ namespace FindTextByUrl
         /// The credential.
         /// </value>
         public NetworkCredential Credential { get; private set; }
+
+        /// <summary>
+        /// Gets the take first.
+        /// </summary>
+        /// <value>
+        /// The take first.
+        /// </value>
+        public Int32? TakeFirst { get; private set; }
+
+        /// <summary>
+        /// Gets the take last.
+        /// </summary>
+        /// <value>
+        /// The take last.
+        /// </value>
+        public Int32? TakeLast { get; private set; }
 
         /// <summary>
         /// Gets the temporary directory.

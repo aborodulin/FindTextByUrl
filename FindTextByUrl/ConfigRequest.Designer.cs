@@ -12,7 +12,7 @@ namespace FindTextByUrl {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "12.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "14.0.0.0")]
     internal sealed partial class ConfigRequest : global::System.Configuration.ApplicationSettingsBase {
         
         private static ConfigRequest defaultInstance = ((ConfigRequest)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new ConfigRequest())));
@@ -92,6 +92,30 @@ namespace FindTextByUrl {
             }
             set {
                 this["IsBasicAuth"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string TakeFirst {
+            get {
+                return ((string)(this["TakeFirst"]));
+            }
+            set {
+                this["TakeFirst"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string TakeLast {
+            get {
+                return ((string)(this["TakeLast"]));
+            }
+            set {
+                this["TakeLast"] = value;
             }
         }
     }
